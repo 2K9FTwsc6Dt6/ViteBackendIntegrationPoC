@@ -27,9 +27,6 @@ namespace ViteBackendIntegrationPoC
             }
 
             app.UseHttpsRedirection();
-            app.UseRouting();
-
-            app.UseAuthorization();
 
             app.UseStaticFiles(
                 new StaticFileOptions
@@ -40,9 +37,15 @@ namespace ViteBackendIntegrationPoC
                 }
             );
 
+            // Note that this must be placed after app.UseStaticFiles() to avoid conflicts!
+            app.UseRouting();
+
+            app.UseAuthorization();
+
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}"
+                pattern: "{**path}",
+                defaults: new { controller = "Home", action = "Index" }
             );
 
             app.MapReverseProxy();
