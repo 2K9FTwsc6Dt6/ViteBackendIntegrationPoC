@@ -17,11 +17,12 @@
 <body>
     @RenderBody()
     <div id="app"></div>
-    @* <environment include="Development">
+    <environment include="Development">
         <script type="module" src="http://localhost:5173/@@vite/client"></script>
         <script type="module" src="http://localhost:5173/src/main.ts"></script>
-    </environment> *@
-    <environment include="Development">
+    </environment>
+    <environment exclude="Development">
+        @* TODO: Do this dynamically! *@
         <link rel="stylesheet" href="~/assets/main-5dJgFXHu.css" />
         <script type="module" src="~/assets/main-BEanKvfY.js"></script>
     </environment>

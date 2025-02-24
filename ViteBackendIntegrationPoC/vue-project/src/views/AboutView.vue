@@ -15,8 +15,8 @@
 </style>
 
 <style scoped>
-/* TODO: Change me to see the effect! */
 h1 {
-  color: red;
+  /* TODO: Change me to "red" to see the hmr update effect! */
+  color: white;
 }
 </style>
