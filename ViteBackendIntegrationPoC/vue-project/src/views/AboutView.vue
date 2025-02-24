@@ -13,3 +13,10 @@
   }
 }
 </style>
+
+<style scoped>
+/* TODO: Change me to see the effect! */
+h1 {
+  color: red;
+}
+</style>
