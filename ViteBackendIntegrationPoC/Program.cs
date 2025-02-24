@@ -1,3 +1,5 @@
+using Microsoft.Extensions.FileProviders;
+
 namespace ViteBackendIntegrationPoC
 {
     public class Program
@@ -8,6 +10,11 @@ namespace ViteBackendIntegrationPoC
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            // https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/yarp/getting-started?view=aspnetcore-9.0
+            builder
+                .Services.AddReverseProxy()
+                .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
 
             var app = builder.Build();
 
@@ -24,12 +31,21 @@ namespace ViteBackendIntegrationPoC
 
             app.UseAuthorization();
 
-            app.MapStaticAssets();
+            app.UseStaticFiles(
+                new StaticFileOptions
+                {
+                    FileProvider = new PhysicalFileProvider(
+                        Path.Combine(builder.Environment.ContentRootPath, "vue-project/dist")
+                    ),
+                }
+            );
+
             app.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}"
-                )
-                .WithStaticAssets();
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}"
+            );
+
+            app.MapReverseProxy();
 
             app.Run();
         }
