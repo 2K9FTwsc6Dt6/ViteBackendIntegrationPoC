@@ -17,14 +17,22 @@
 <body>
     @RenderBody()
     <div id="app"></div>
-    <environment include="Development">
+    @* TODO *@
+    <environment exclude="Development">
         <script type="module" src="http://localhost:5173/@@vite/client"></script>
         <script type="module" src="http://localhost:5173/src/main.ts"></script>
     </environment>
-    <environment exclude="Development">
-        @* TODO: Do this dynamically! *@
-        <link rel="stylesheet" href="~/assets/main-5dJgFXHu.css" />
-        <script type="module" src="~/assets/main-BEanKvfY.js"></script>
+    @* TODO *@
+    <environment include="Development">
+        @using (var manifest = JsonDocument.Parse(File.ReadAllText("./vue-project/dist/.vite/manifest.json")))
+        {
+            var main = manifest.RootElement.GetProperty("src/main.ts");
+            @foreach (var css in main.GetProperty("css").EnumerateArray())
+            {
+                <link rel="stylesheet" href="~/@css" />
+            }
+            <script type="module" src="~/@main.GetProperty("file")"></script>
+        }
     </environment>
 </body>
 
