@@ -5,3 +5,33 @@ Not like a
 but an **ASP.NET Core MVC app with the assets from Vue** instead, as explained
 [here](https://vite.dev/guide/backend-integration) and implemented
 [here](https://github.com/Eptagone/Vite.AspNetCore).
+
+## Development (use VITE development server)
+
+```bash
+npm run dev
+```
+
+```bash
+dotnet watch
+```
+
+## Production (use build and `dist` folder)
+
+```bash
+npm run build
+```
+
+```bash
+dotnet run --launch-profile "build"
+```
+
+**Use watch mode (for development):**
+
+```bash
+npm run watch
+```
+
+```bash
+dotnet watch --launch-profile "build"
+```

@@ -17,12 +17,13 @@ export default defineConfig({
     rollupOptions: {
       // https://vite.dev/guide/backend-integration.html
       input: './src/main.ts',
-      output: {
-        entryFileNames: 'assets/[hash:21].js',
-        chunkFileNames: 'assets/[hash:21].js',
-        assetFileNames: 'assets/[hash:21].[ext]',
-        sourcemapFileNames: 'assets/[hash:21].js.map',
-      },
+      // output: {
+      //   // This works as well!
+      //   entryFileNames: 'assets/[hash:21].js',
+      //   chunkFileNames: 'assets/[hash:21].js',
+      //   assetFileNames: 'assets/[hash:21].[ext]',
+      //   sourcemapFileNames: 'assets/[hash:21].js.map',
+      // },
     },
   },
 })

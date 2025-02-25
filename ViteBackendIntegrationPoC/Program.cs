@@ -27,14 +27,23 @@ namespace ViteBackendIntegrationPoC
 
             app.UseHttpsRedirection();
 
-            app.UseStaticFiles(
-                new StaticFileOptions
-                {
-                    FileProvider = new PhysicalFileProvider(
-                        Path.Combine(builder.Environment.ContentRootPath, "vue-project/dist")
-                    ),
-                }
-            );
+            if (!app.Environment.IsDevelopment())
+            {
+                app.UseStaticFiles(
+                    new StaticFileOptions
+                    {
+                        FileProvider = new PhysicalFileProvider(
+                            Path.Combine(
+                                builder.Environment.ContentRootPath,
+                                "vue-input-integration/dist"
+                            )
+                        ),
+                    }
+                );
+            }
+
+            // TODO: Static files from "vue-input-integration/public" in Production mode
+            // to prevent the need for a reverse proxy altogether???
 
             // Note that this must be placed after app.UseStaticFiles() to avoid conflicts!
             app.UseRouting();
@@ -48,7 +57,10 @@ namespace ViteBackendIntegrationPoC
                 defaults: new { controller = "Home", action = "Index" }
             );
 
-            app.MapReverseProxy();
+            if (app.Environment.IsDevelopment())
+            {
+                app.MapReverseProxy();
+            }
 
             app.Run();
         }

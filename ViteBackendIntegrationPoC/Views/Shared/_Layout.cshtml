@@ -16,8 +16,10 @@
 
 <body>
     @RenderBody()
-      @*
-        From the generated Vue template "index.html"
+    @*
+        From the generated Vue template "index.html".
+
+        Note the reference to "main.ts", not "main.js"!
 
         <body>
             <div id="app"></div>
@@ -26,22 +28,24 @@
     *@
     <div id="app"></div>
     @*
+        See https://vite.dev/guide/backend-integration.
+
         We do not use https://github.com/Eptagone/Vite.AspNetCore.
         It is overkill for a SPA backend with no Razor Views left,
         and we have the necessary infrastructure like YARP anyway.
     *@
-    @* TODO: Change this to "include" and use "Local"... *@
-    <environment exclude="Development">
+    @* TODO: Use "Local"... *@
+    <environment include="Development">
         <script type="module" src="http://localhost:5173/@@vite/client"></script>
         <script type="module" src="http://localhost:5173/src/main.ts"></script>
     </environment>
-    @* TODO: Change this to "exclude" and use "Local"... *@
-    <environment include="Development">
-        @foreach (var css in Manifest.Css)
+    @* TODO: Use "Local"... *@
+    <environment exclude="Development">
+        @foreach (var stylesheet in Manifest.Stylesheets)
         {
-            <link rel="stylesheet" href="~/@css" />
+            <link rel="stylesheet" href="~/@stylesheet" />
         }
-        <script type="module" src="~/@Manifest.File"></script>
+        <script type="module" src="~/@Manifest.EntryPoint"></script>
     </environment>
 </body>
 

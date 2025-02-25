@@ -1,16 +1,19 @@
 {
-  "name": "vue-project",
+  "name": "vue-input-integration",
   "version": "0.0.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
+    "watch": "run-p type-check-watch \"build-only-watch {@}\" --",
     "preview": "vite preview",
     "test:unit": "vitest",
     "test:e2e": "playwright test",
     "build-only": "vite build",
+    "build-only-watch": "vite build --watch",
     "type-check": "vue-tsc --build",
+    "type-check-watch": "vue-tsc --build --watch",
     "lint": "eslint . --fix",
     "format": "prettier --write src/"
   },
