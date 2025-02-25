@@ -12,19 +12,17 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
-  // server: {
-  //   cors: {
-  //     // the origin you will be accessing via browser
-  //     origin: 'http://my-backend.example.com',
-  //   },
-  // },
   build: {
-    // generate .vite/manifest.json in outDir
     manifest: true,
     rollupOptions: {
-      // overwrite default .html entry
-      // TODO: Hashed file names!
+      // https://vite.dev/guide/backend-integration.html
       input: './src/main.ts',
+      output: {
+        entryFileNames: 'assets/[hash:21].js',
+        chunkFileNames: 'assets/[hash:21].js',
+        assetFileNames: 'assets/[hash:21].[ext]',
+        sourcemapFileNames: 'assets/[hash:21].js.map',
+      },
     },
   },
 })

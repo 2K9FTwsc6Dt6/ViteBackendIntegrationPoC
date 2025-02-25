@@ -17,22 +17,18 @@
 <body>
     @RenderBody()
     <div id="app"></div>
-    @* TODO *@
+    @* TODO: Change this to "include" and use "Local"... *@
     <environment exclude="Development">
         <script type="module" src="http://localhost:5173/@@vite/client"></script>
         <script type="module" src="http://localhost:5173/src/main.ts"></script>
     </environment>
-    @* TODO *@
+    @* TODO: Change this to "exclude" and use "Local"... *@
     <environment include="Development">
-        @using (var manifest = JsonDocument.Parse(File.ReadAllText("./vue-project/dist/.vite/manifest.json")))
+        @foreach (var css in Manifest.Css)
         {
-            var main = manifest.RootElement.GetProperty("src/main.ts");
-            @foreach (var css in main.GetProperty("css").EnumerateArray())
-            {
-                <link rel="stylesheet" href="~/@css" />
-            }
-            <script type="module" src="~/@main.GetProperty("file")"></script>
+            <link rel="stylesheet" href="~/@css" />
         }
+        <script type="module" src="~/@Manifest.File"></script>
     </environment>
 </body>
 

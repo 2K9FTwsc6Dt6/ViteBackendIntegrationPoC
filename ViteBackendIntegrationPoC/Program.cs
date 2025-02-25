@@ -21,7 +21,6 @@ namespace ViteBackendIntegrationPoC
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
-                app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -44,6 +43,7 @@ namespace ViteBackendIntegrationPoC
 
             app.MapControllerRoute(
                 name: "default",
+                // Note that I'm a catch-all route...
                 pattern: "{**path}",
                 defaults: new { controller = "Home", action = "Index" }
             );
