@@ -13,3 +13,10 @@
   }
 }
 </style>
+
+<style scoped>
+h1 {
+  /* TODO: Change me to "red" to see the hmr update effect! */
+  color: white;
+}
+</style>

@@ -6,13 +6,28 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    vue(),
-    vueDevTools(),
-  ],
+  plugins: [vue(), vueDevTools()],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
+  build: {
+    manifest: true,
+    rollupOptions: {
+      output: {
+        entryFileNames: 'assets/[name].js',
+        chunkFileNames: 'assets/[name].js',
+        assetFileNames: 'assets/[name].[ext]',
+        sourcemapFileNames: 'assets/[name].js.map',
+      },
+      // Note that this works as well!
+      // output: {
+      //   entryFileNames: 'assets/[hash:21].js',
+      //   chunkFileNames: 'assets/[hash:21].js',
+      //   assetFileNames: 'assets/[hash:21].[ext]',
+      //   sourcemapFileNames: 'assets/[hash:21].js.map',
+      // },
     },
   },
 })

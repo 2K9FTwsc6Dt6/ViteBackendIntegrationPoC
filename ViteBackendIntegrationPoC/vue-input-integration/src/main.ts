@@ -1,4 +1,4 @@
-// TODO: Notwendig?
+// https://vite.dev/guide/backend-integration#backend-integration
 import 'vite/modulepreload-polyfill'
 
 import './assets/main.css'

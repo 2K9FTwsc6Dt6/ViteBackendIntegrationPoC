@@ -12,40 +12,47 @@
         Instead of /public/favicon.ico, use /favicon.ico.
     *@
     <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
+    @* TODO: Use "Local"... *@
+    @*
+        See https://vite.dev/guide/backend-integration.
+
+        We do not use https://github.com/Eptagone/Vite.AspNetCore.
+        It is overkill for a SPA backend with no Razor Views left.
+
+        From the Vue build output assets "./dist/index.html"
+        (note the different location - head vs. body - here):
+
+        <head>
+            <!-- ... -->
+            <script type="module" crossorigin src="/assets/index-Xxls1TsY.js"></script>
+            <link rel="stylesheet" crossorigin href="/assets/index-BoE9XZTb.css">
+        </head>
+    *@
+    <environment exclude="Development">
+        <script type="module" crossorigin src="~/@Manifest.EntryPoint"></script>
+        @foreach (var stylesheet in Manifest.Stylesheets)
+        {
+            <link rel="stylesheet" crossorigin href="~/@stylesheet" />
+        }
+    </environment>
 </head>
 
 <body>
     @RenderBody()
+    <div id="app"></div>
     @*
-        From the generated Vue template "index.html".
-
-        Note the reference to "main.ts", not "main.js"!
+        From the static Vue template "./index.html"
+        (note the reference to "main.ts", not "main.js"):
 
         <body>
             <div id="app"></div>
             <script type="module" src="/src/main.ts"></script>
         </body>
     *@
-    <div id="app"></div>
-    @*
-        See https://vite.dev/guide/backend-integration.
-
-        We do not use https://github.com/Eptagone/Vite.AspNetCore.
-        It is overkill for a SPA backend with no Razor Views left,
-        and we have the necessary infrastructure like YARP anyway.
-    *@
     @* TODO: Use "Local"... *@
     <environment include="Development">
         <script type="module" src="http://localhost:5173/@@vite/client"></script>
         <script type="module" src="http://localhost:5173/src/main.ts"></script>
-    </environment>
-    @* TODO: Use "Local"... *@
-    <environment exclude="Development">
-        @foreach (var stylesheet in Manifest.Stylesheets)
-        {
-            <link rel="stylesheet" href="~/@stylesheet" />
-        }
-        <script type="module" src="~/@Manifest.EntryPoint"></script>
     </environment>
 </body>
 

@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import WelcomeItem from './WelcomeItem.vue'
-import DocumentationIcon from './icons/IconDocumentation.vue'
-import ToolingIcon from './icons/IconTooling.vue'
-import EcosystemIcon from './icons/IconEcosystem.vue'
-import CommunityIcon from './icons/IconCommunity.vue'
-import SupportIcon from './icons/IconSupport.vue'
+import { defineAsyncComponent } from 'vue'
+
+const WelcomeItem = defineAsyncComponent(() => import('./WelcomeItem.vue'))
+const DocumentationIcon = defineAsyncComponent(() => import('./icons/IconDocumentation.vue'))
+const ToolingIcon = defineAsyncComponent(() => import('./icons/IconTooling.vue'))
+const EcosystemIcon = defineAsyncComponent(() => import('./icons/IconEcosystem.vue'))
+const CommunityIcon = defineAsyncComponent(() => import('./icons/IconCommunity.vue'))
+const SupportIcon = defineAsyncComponent(() => import('./icons/IconSupport.vue'))
 
 const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
 </script>
