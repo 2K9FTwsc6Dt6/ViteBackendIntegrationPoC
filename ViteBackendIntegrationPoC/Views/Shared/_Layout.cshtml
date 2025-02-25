@@ -17,6 +17,11 @@
 <body>
     @RenderBody()
     <div id="app"></div>
+    @*
+        We do not use https://github.com/Eptagone/Vite.AspNetCore.
+        It is overkill for a SPA backend with no Razor Views left,
+        and we have the necessary infrastructure like YARP anyway.
+    *@
     @* TODO: Change this to "include" and use "Local"... *@
     <environment exclude="Development">
         <script type="module" src="http://localhost:5173/@@vite/client"></script>
