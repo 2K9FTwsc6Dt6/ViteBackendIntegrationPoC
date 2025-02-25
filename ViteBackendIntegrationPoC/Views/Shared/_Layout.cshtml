@@ -23,16 +23,17 @@
 
         <head>
             <!-- ... -->
-            <script type="module" crossorigin src="/assets/index-Xxls1TsY.js"></script>
-            <link rel="stylesheet" crossorigin href="/assets/index-BoE9XZTb.css">
+            <script type="module" crossorigin src="/assets/index.js"></script>
+            <link rel="stylesheet" crossorigin href="/assets/index.css">
         </head>
     *@
-    @if (!Program.UseViteDevServer)
+    @if (!DevServer.Use)
     {
-        <script type="module" crossorigin src="~/@Manifest.EntryPoint"></script>
-        @foreach (var stylesheet in Manifest.Stylesheets)
+        var (src, hrefs) = Manifest.Record;
+        <script type="module" crossorigin src="~/@src"></script>
+        @foreach (var href in hrefs)
         {
-            <link rel="stylesheet" crossorigin href="~/@stylesheet" />
+            <link rel="stylesheet" crossorigin href="~/@href" />
         }
     }
 </head>
@@ -49,10 +50,10 @@
             <script type="module" src="/src/main.ts"></script>
         </body>
     *@
-    @if (Program.UseViteDevServer)
+    @if (DevServer.Use)
     {
-        <script type="module" src="@Program.ViteDevServerUrl/@@vite/client"></script>
-        <script type="module" src="@Program.ViteDevServerUrl/src/main.ts"></script>
+        <script type="module" src="@DevServer.Url/@@vite/client"></script>
+        <script type="module" src="@DevServer.Url/src/main.ts"></script>
     }
 </body>
 

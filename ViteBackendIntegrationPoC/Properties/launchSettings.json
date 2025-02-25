@@ -8,7 +8,8 @@
       "applicationUrl": "https://localhost:7099;http://localhost:5291",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "VITE_DEV_SERVER_URL": "http://localhost:5173"
+        "VITE_DEV_SERVER_URL": "http://localhost:5173",
+        "VITE_HOT_RELOAD_MANIFEST": "false"
       }
     },
     "build": {
@@ -18,7 +19,8 @@
       "applicationUrl": "https://localhost:7099;http://localhost:5291",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "VITE_DEV_SERVER_URL": ""
+        "VITE_DEV_SERVER_URL": "",
+        "VITE_HOT_RELOAD_MANIFEST": "true"
       }
     }
   }
