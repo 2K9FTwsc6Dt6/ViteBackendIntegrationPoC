@@ -4,6 +4,8 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 
+import type { PreRenderedAsset, PreRenderedChunk } from 'rollup'
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [vue(), vueDevTools()],
@@ -16,10 +18,12 @@ export default defineConfig({
     manifest: true,
     rollupOptions: {
       output: {
-        entryFileNames: 'assets/[name].js',
-        chunkFileNames: 'assets/[name].js',
-        assetFileNames: 'assets/[name].[ext]',
-        sourcemapFileNames: 'assets/[name].js.map',
+        entryFileNames: (chunkInfo: PreRenderedChunk) =>
+          chunkInfo.name === 'index' ? 'assets/main-[hash].js' : 'assets/[name]-[hash].js',
+        assetFileNames: (chunkInfo: PreRenderedAsset) =>
+          chunkInfo.names.every((name) => name === 'index.css')
+            ? 'assets/main-[hash].css'
+            : 'assets/[name]-[hash].[ext]',
       },
       // Note that this works as well!
       // output: {
