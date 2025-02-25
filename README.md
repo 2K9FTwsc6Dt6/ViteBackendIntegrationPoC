@@ -9,6 +9,7 @@ but an **ASP.NET Core MVC app with the assets from Vue** instead, as explained
 ## Development (use VITE development server)
 
 ```bash
+# ./ViteBackendIntegrationPoC/vue-input-integration
 npm run dev
 ```
 
@@ -19,6 +20,7 @@ dotnet watch
 ## Production (use build and `dist` folder)
 
 ```bash
+# ./ViteBackendIntegrationPoC/vue-input-integration
 npm run build
 ```
 
@@ -29,6 +31,7 @@ dotnet run --launch-profile "build"
 **Use watch mode (for development):**
 
 ```bash
+# ./ViteBackendIntegrationPoC/vue-input-integration
 npm run watch
 ```
 

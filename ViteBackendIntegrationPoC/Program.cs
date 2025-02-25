@@ -4,17 +4,17 @@ namespace ViteBackendIntegrationPoC
 {
     public class Program
     {
+        public static string? ViteDevServerUrl { get; } =
+            Environment.GetEnvironmentVariable("VITE_DEV_SERVER_URL");
+
+        public static bool UseViteDevServer { get; } = !string.IsNullOrEmpty(ViteDevServerUrl);
+
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
-            // https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/yarp/getting-started?view=aspnetcore-9.0
-            builder
-                .Services.AddReverseProxy()
-                .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
 
             var app = builder.Build();
 
@@ -27,23 +27,17 @@ namespace ViteBackendIntegrationPoC
 
             app.UseHttpsRedirection();
 
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseStaticFiles(
-                    new StaticFileOptions
-                    {
-                        FileProvider = new PhysicalFileProvider(
-                            Path.Combine(
-                                builder.Environment.ContentRootPath,
-                                "vue-input-integration/dist"
-                            )
-                        ),
-                    }
-                );
-            }
-
-            // TODO: Static files from "vue-input-integration/public" in Production mode
-            // to prevent the need for a reverse proxy altogether???
+            app.UseStaticFiles(
+                new StaticFileOptions
+                {
+                    FileProvider = new PhysicalFileProvider(
+                        Path.Combine(
+                            builder.Environment.ContentRootPath,
+                            $"vue-input-integration/{(UseViteDevServer ? "public" : "dist")}"
+                        )
+                    ),
+                }
+            );
 
             // Note that this must be placed after app.UseStaticFiles() to avoid conflicts!
             app.UseRouting();
@@ -56,11 +50,6 @@ namespace ViteBackendIntegrationPoC
                 pattern: "{**path}",
                 defaults: new { controller = "Home", action = "Index" }
             );
-
-            if (app.Environment.IsDevelopment())
-            {
-                app.MapReverseProxy();
-            }
 
             app.Run();
         }

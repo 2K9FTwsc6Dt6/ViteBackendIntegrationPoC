@@ -7,7 +7,8 @@
       "launchBrowser": true,
       "applicationUrl": "https://localhost:7099;http://localhost:5291",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "VITE_DEV_SERVER_URL": "http://localhost:5173"
       }
     },
     "build": {
@@ -16,7 +17,8 @@
       "launchBrowser": true,
       "applicationUrl": "https://localhost:7099;http://localhost:5291",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Production"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "VITE_DEV_SERVER_URL": ""
       }
     }
   }

@@ -12,7 +12,6 @@
         Instead of /public/favicon.ico, use /favicon.ico.
     *@
     <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
-    @* TODO: Use "Local"... *@
     @*
         See https://vite.dev/guide/backend-integration.
 
@@ -28,13 +27,14 @@
             <link rel="stylesheet" crossorigin href="/assets/index-BoE9XZTb.css">
         </head>
     *@
-    <environment exclude="Development">
+    @if (!Program.UseViteDevServer)
+    {
         <script type="module" crossorigin src="~/@Manifest.EntryPoint"></script>
         @foreach (var stylesheet in Manifest.Stylesheets)
         {
             <link rel="stylesheet" crossorigin href="~/@stylesheet" />
         }
-    </environment>
+    }
 </head>
 
 <body>
@@ -49,11 +49,11 @@
             <script type="module" src="/src/main.ts"></script>
         </body>
     *@
-    @* TODO: Use "Local"... *@
-    <environment include="Development">
-        <script type="module" src="http://localhost:5173/@@vite/client"></script>
-        <script type="module" src="http://localhost:5173/src/main.ts"></script>
-    </environment>
+    @if (Program.UseViteDevServer)
+    {
+        <script type="module" src="@Program.ViteDevServerUrl/@@vite/client"></script>
+        <script type="module" src="@Program.ViteDevServerUrl/src/main.ts"></script>
+    }
 </body>
 
 </html>
