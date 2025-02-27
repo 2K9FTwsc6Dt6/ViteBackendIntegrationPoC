@@ -16,10 +16,14 @@
         See https://vite.dev/guide/backend-integration.
 
         We do not use https://github.com/Eptagone/Vite.AspNetCore.
-        It is overkill for a SPA backend with no Razor Views left.
+        It is overkill for a SPA backend with no Razor views left.
 
         From the Vue build output assets "./dist/index.html"
         (note the different location - head vs. body - here):
+
+        Please note also: "The defer attribute has no effect on module scripts
+        - they defer by default."
+        https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#defer
 
         <head>
             <!-- ... -->
@@ -30,10 +34,10 @@
     @if (!DevServer.Use)
     {
         var (src, hrefs) = Manifest.Record;
-        <script type="module" crossorigin src="~/@src"></script>
+        <script type="module" src="~/@src"></script>
         @foreach (var href in hrefs)
         {
-            <link rel="stylesheet" crossorigin href="~/@href" />
+            <link rel="stylesheet" href="~/@href" />
         }
     }
 </head>
@@ -42,7 +46,7 @@
     @RenderBody()
     <div id="app"></div>
     @*
-        From the static Vue template "./index.html"
+        From the static Vue template "./index.html" and the VITE dev server
         (note the reference to "main.ts", not "main.js"):
 
         <body>
